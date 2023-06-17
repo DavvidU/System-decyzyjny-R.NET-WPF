@@ -19,9 +19,10 @@ namespace System_decyzyjny
     /// </summary>
     public partial class Wynik : Window
     {
-        public Wynik()
+        public Wynik(Backend backend)
         {
             InitializeComponent();
+            
         }
     }
 }

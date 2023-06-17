@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,11 +23,45 @@ namespace System_decyzyjny
         public Backend(string sciezka, int stepbystep)
         {
             InitializeComponent();
-            Metoda();
         }
-        public  void Metoda()
+        public void OdczytajPlik()
         {
-            this.Show();
+
         }
+        public void WyznaczObszarPozytywny()
+        {
+            //wylicz dolna aproksymacje
+            //zapisz dane tu
+            //if(stepbystep == 1)
+            //wypisz progres algorytmu
+            Wynik wynik = new Wynik(this);
+        }
+        public void WyznaczGornaAproksymacje()
+        {
+            //wyznacz gorna aproksymacje
+        }
+        public void WyznaczObszarNegatywny()
+        {
+            //Wyznacz uniwersum pomniejszone o gorna aproksymacje
+        }
+        public void WyznaczZbiorWskazujacychRegulDecyzyjnych()
+        {
+            //po jednej regule dla kazdzego obiektu z obszaru pozytywnego technika dropping conditions
+        }
+        public void WyznaczZbiorWykluczajacychRegulDecyzyjnych()
+        {
+            //po jednej regule dla kazdzego obiektu z obszaru negatywnegoo technika dropping conditions
+        }
+        public void UsunPowtarzajaceSieReguly()
+        {
+            //po prostu
+        }
+        public void UsunRegulyBedaceUszczegolowieniemInnychRegul()
+        {
+            //np regula a ^ b => c jest uczegolowieniem a => c
+        }
+        // za pomoca regul wykluczajacych wyeliminowac obiekty niepasujace? niepowiazane? (napewno nie nalezace?)
+        
+        // z tak otrzymanego zbioru potencjalnie pasujacych zawezic za pomoca regul wskazujacych
     }
 }
