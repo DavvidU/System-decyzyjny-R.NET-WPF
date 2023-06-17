@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:System_decyzyjny"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        ResizeMode="NoResize"
+        Title="System decyzyjny" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="12.5*"/>
+            <RowDefinition Height="12.5*"/>
+            <RowDefinition Height="25*"/>
+        </Grid.RowDefinitions>
+        
+        <Button FontSize="30" Click="wybierz_click" Content="Wybierz plik z danymi" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="348" Grid.Row="0"/>
+        <TextBlock x:Name="sciezka" FontSize="30" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Nie wybrano pliku" VerticalAlignment="Center"/>
+        <RadioButton x:Name="kontrola" Content="Kontrola kroków" HorizontalAlignment="Center" Margin="0,0,0,5" Grid.Row="2" VerticalAlignment="Bottom"/>
+        <RadioButton x:Name="automatycznie" Content="Tryb automatyczny" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+        <Button FontSize="30" Click="wyznacz_click" Content="Wyznacz" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="348" Grid.Row="4"/>
+
 
     </Grid>
 </Window>
