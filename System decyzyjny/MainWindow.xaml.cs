@@ -22,7 +22,7 @@ namespace System_decyzyjny
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string wybranyPlik;
+        private string wybranyPlik = "nic";
         private int stepbystep = 0;
         //Uri = new Uri("C\es.txt");
         public MainWindow()
@@ -55,11 +55,15 @@ namespace System_decyzyjny
             else if((bool)kontrola.IsChecked)
             {
                 stepbystep = 1;
+                Backend backend = new Backend(wybranyPlik, stepbystep);
+                this.Close();
                 //uruchomAlgorytm(wybranyPlik, stepbystep);
             }
             else if ((bool)automatycznie.IsChecked)
             {
                 stepbystep = 0;
+                Backend backend = new Backend(wybranyPlik, stepbystep);
+                this.Close();
                 //uruchomAlgorytm(wybranyPlik, stepbystep);
             }
         }
