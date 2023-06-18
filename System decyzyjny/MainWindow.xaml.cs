@@ -22,6 +22,7 @@ namespace System_decyzyjny
     /// </summary>
     public partial class MainWindow : Window
     {
+       
         private string wybranyPlik = "nic";
         private int stepbystep = 0;
         //Uri = new Uri("C\es.txt");
