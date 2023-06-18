@@ -46,25 +46,21 @@ namespace System_decyzyjny
             silnikR.Evaluate("install.packages('remotes')");
             silnikR.Evaluate("remotes::install_github('janusza/RoughSets')");  // Instalacja pakietu RoughSets z repozytorium GitHub https://github.com/janusza/RoughSets
             silnikR.Evaluate("library(RoughSets)");
+
+            // Odczytanie danych z pliku do data
             
             silnikR.Evaluate($"tablica_decyzyjna=SF.read.DecisionTable(\"{dane}\",header=TRUE,sep=\",\")");
             silnikR.Evaluate($"data <- read.table(\"{dane}\", header = TRUE)");
             DataFrame data = silnikR.GetSymbol("data").AsDataFrame();
-            wynik.Text = (string)data[0, 0];
+
+            WyswietlTabeleDanych wysTabDanych = new WyswietlTabeleDanych(data, this);
+
+
             //DataTable dataTable = new DataTable();
 
 
             //SymbolicExpression rules = silnikR.GetSymbol("data");
-            silnikR.Evaluate("positiveRegion <-  BC.positive.reg.RST(data, BC.LU.approximation.RST(dt,ind)");
             
-
-            
-            
-            
-            
-            
-            
-            this.Show();
         }
         public void OdczytajPlik()
         {
