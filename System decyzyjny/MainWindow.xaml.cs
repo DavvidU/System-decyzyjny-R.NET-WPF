@@ -55,6 +55,8 @@ namespace System_decyzyjny
             }
             else if((bool)kontrola.IsChecked)
             {
+                button1.IsEnabled = false;
+                button2.IsEnabled = false;
                 stepbystep = 1;
                 Backend backend = new Backend(wybranyPlik, stepbystep);
                 this.Close();
@@ -62,6 +64,8 @@ namespace System_decyzyjny
             }
             else if ((bool)automatycznie.IsChecked)
             {
+                button1.IsEnabled = false;
+                button2.IsEnabled = false;
                 stepbystep = 0;
                 Backend backend = new Backend(wybranyPlik, stepbystep);
                 this.Close();

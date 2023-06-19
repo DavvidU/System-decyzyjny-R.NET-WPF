@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="Backend" Height="450" Width="800">
     <Grid>
-        <TextBlock x:Name="wynik" FontSize="30" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="0" TextWrapping="Wrap" Text="" VerticalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="pozytywny" FontSize="30" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="0" TextWrapping="Wrap" Text="" VerticalAlignment="Center"/>
+        <TextBlock x:Name="negatywny" FontSize="30" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Center"/>
     </Grid>
 </Window>

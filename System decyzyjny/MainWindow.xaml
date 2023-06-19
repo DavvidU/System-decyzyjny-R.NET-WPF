@@ -16,11 +16,11 @@
             <RowDefinition Height="25*"/>
         </Grid.RowDefinitions>
         
-        <Button FontSize="30" Click="wybierz_click" Content="Wybierz plik z danymi" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="348" Grid.Row="0"/>
+        <Button x:Name="button1" FontSize="30" Click="wybierz_click" Content="Wybierz plik z danymi" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="348" Grid.Row="0"/>
         <TextBlock x:Name="sciezka" FontSize="30" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Nie wybrano pliku" VerticalAlignment="Center"/>
         <RadioButton x:Name="kontrola" Content="Kontrola kroków" HorizontalAlignment="Center" Margin="0,0,0,5" Grid.Row="2" VerticalAlignment="Bottom"/>
         <RadioButton x:Name="automatycznie" Content="Tryb automatyczny" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="3" VerticalAlignment="Top"/>
-        <Button FontSize="30" Click="wyznacz_click" Content="Wyznacz" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="348" Grid.Row="4"/>
+        <Button x:Name="button2" FontSize="30" Click="wyznacz_click" Content="Wyznacz" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="348" Grid.Row="4"/>
 
 
     </Grid>
