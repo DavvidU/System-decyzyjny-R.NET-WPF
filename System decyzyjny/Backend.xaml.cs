@@ -102,12 +102,13 @@ namespace System_decyzyjny
             GenericVector lista_gornych_aproksymacji;
             int[][] dolne_aproksymacje = null;
             int[][] gorne_aproksymacje = null;
+            string[] nazwy_klas_aproksymacji = null;
             if (krokpokroku == 1)
             {
                 lista_aproksymacji = silnikR.GetSymbol("aproksymacje").AsList();
                 lista_dolnych_aproksymacji = lista_aproksymacji["lower.approximation"].AsList();
                 lista_gornych_aproksymacji = lista_aproksymacji["upper.approximation"].AsList();
-
+                nazwy_klas_aproksymacji = lista_dolnych_aproksymacji.Names;
                 int i;
                 // Pobieranie dolnych aproksymacji
                 for (i = 0; i < lista_dolnych_aproksymacji.Length; ++i) { }
@@ -129,7 +130,7 @@ namespace System_decyzyjny
             }
             WyswietlTabeleDanych wysDolneAproks;
             if (krokpokroku == 1)
-                wysDolneAproks = new WyswietlTabeleDanych(dolne_aproksymacje, gorne_aproksymacje, this, "Dolne aproksymacje");
+                wysDolneAproks = new WyswietlTabeleDanych(nazwy_klas_aproksymacji, dolne_aproksymacje, gorne_aproksymacje, this, "Dolne aproksymacje");
             if (krokpokroku == 0)
                 WyznaczObszarPozytywny();
         }

@@ -32,6 +32,7 @@ namespace System_decyzyjny
         DataTable przekonwertowana_tabela;
         DataTable klasy_abstrakcji;
         int[][] gorne_aproks;
+        string[] nazwy_wszystkich_klas_aproksymacji;
         //Konstruktor dla wyswietlania tablicy decyzyjnej
         public WyswietlTabeleDanych(DataFrame arg, Backend backend, string tytul)
         {
@@ -113,18 +114,19 @@ namespace System_decyzyjny
             this.Show();
         }
         //Konstruktor dla wyswietlania dolnych aproksymacji
-        public WyswietlTabeleDanych(int[][] arg1, int[][] arg2, Backend backend, string tytul)
+        public WyswietlTabeleDanych(string[] nazwy_klas_aproksymacji, int[][] arg1, int[][] arg2, Backend backend, string tytul)
         {
             InitializeComponent();
             Title = tytul;
             this.backend = backend;
             co_wywolano = tytul;
             gorne_aproks = arg2;
+            nazwy_wszystkich_klas_aproksymacji = nazwy_klas_aproksymacji;
 
             DataTable dolne_aproksymacje = new DataTable();
 
             // Dodaj kolumnę dla nazwy wiersza jako pierwszą kolumnę
-            DataColumn nazwaWierszaColumn = dolne_aproksymacje.Columns.Add("Klasa nieodroznialnosci");
+            DataColumn nazwaWierszaColumn = dolne_aproksymacje.Columns.Add("Klasa");
             nazwaWierszaColumn.SetOrdinal(0);
 
             // Dodaj pozostałe kolumny do DataTable
@@ -146,11 +148,11 @@ namespace System_decyzyjny
                 // Ustaw nazwę wiersza
                 if (arg1[i].Length > 0)
                 {
-                    dolne_aproksymacje.Rows[i]["Klasa nieodroznialnosci"] = $"[{arg1[i][0]}]B";
+                    dolne_aproksymacje.Rows[i]["Klasa"] = $"{nazwy_klas_aproksymacji[i]}";
                 }
                 else
                 {
-                    dolne_aproksymacje.Rows[i]["Klasa nieodroznialnosci"] = "[Empty]B";
+                    dolne_aproksymacje.Rows[i]["Klasa"] = "[Empty]B";
                 }
             }
 
@@ -159,7 +161,7 @@ namespace System_decyzyjny
             this.Show();
         }
         //Konstruktor dla wyswietlania gornych aproksymacji
-        public WyswietlTabeleDanych(int[][] arg, Backend backend, string tytul, int x)
+        public WyswietlTabeleDanych(string[] nazwy_klas_aproksymacji, int[][] arg, Backend backend, string tytul, int x)
         {
             InitializeComponent();
             Title = tytul;
@@ -169,7 +171,7 @@ namespace System_decyzyjny
             DataTable gorne_aproksymacje = new DataTable();
 
             // Dodaj kolumnę dla nazwy wiersza jako pierwszą kolumnę
-            DataColumn nazwaWierszaColumn = gorne_aproksymacje.Columns.Add("Klasa nieodroznialnosci");
+            DataColumn nazwaWierszaColumn = gorne_aproksymacje.Columns.Add("Klasa");
             nazwaWierszaColumn.SetOrdinal(0);
 
             // Dodaj pozostałe kolumny do DataTable
@@ -191,11 +193,11 @@ namespace System_decyzyjny
                 // Ustaw nazwę wiersza
                 if (arg[i].Length > 0)
                 {
-                    gorne_aproksymacje.Rows[i]["Klasa nieodroznialnosci"] = $"[{arg[i][0]}]B";
+                    gorne_aproksymacje.Rows[i]["Klasa"] = $"{nazwy_klas_aproksymacji[i]}";
                 }
                 else
                 {
-                    gorne_aproksymacje.Rows[i]["Klasa nieodroznialnosci"] = "[Empty]B";
+                    gorne_aproksymacje.Rows[i]["Klasa"] = "[Empty]";
                 }
             }
 
@@ -207,23 +209,23 @@ namespace System_decyzyjny
         {
             if (co_wywolano == "Wprowadzone dane")
             {
-                backend.StworzTabliceDecyzyjna(ilosc_atrybutow);
                 nextPrzycisk.IsEnabled = false;
+                backend.StworzTabliceDecyzyjna(ilosc_atrybutow);
             }
             if (co_wywolano == "Klasy nieodroznialnosci")
             {
+                nextPrzycisk.IsEnabled = false;
                 backend.WyznaczAproksymacje();
-                this.Close();
             }
             if (co_wywolano == "Dolne aproksymacje")
             {
-                WyswietlTabeleDanych wysGorneAproks = new WyswietlTabeleDanych(gorne_aproks, backend, "Gorne aproksymacje", 1);
-                this.Close();
+                nextPrzycisk.IsEnabled = false;
+                WyswietlTabeleDanych wysGorneAproks = new WyswietlTabeleDanych(nazwy_wszystkich_klas_aproksymacji, gorne_aproks, backend, "Gorne aproksymacje", 1);
             }
             if (co_wywolano == "Gorne aproksymacje")
             {
+                nextPrzycisk.IsEnabled = false;
                 backend.WyznaczObszarPozytywny();
-                this.Close();
             }
             
         }
