@@ -33,6 +33,9 @@ namespace System_decyzyjny
         DataTable klasy_abstrakcji;
         int[][] gorne_aproks;
         string[] nazwy_wszystkich_klas_aproksymacji;
+        int[] globalny_obszar_pozytywny;
+        int[] globalny_obszar_negatywny;
+
         //Konstruktor dla wyswietlania tablicy decyzyjnej
         public WyswietlTabeleDanych(DataFrame arg, Backend backend, string tytul)
         {
@@ -47,7 +50,8 @@ namespace System_decyzyjny
 
             string[] nazwy_kolumn = otrzymana_tabela.ColumnNames[0].Split('.');
             ilosc_atrybutow = nazwy_kolumn.Length.ToString();
-            foreach(var kolumna in nazwy_kolumn)
+            przekonwertowana_tabela.Columns.Add("Element");
+            foreach (var kolumna in nazwy_kolumn)
             {
                 przekonwertowana_tabela.Columns.Add(kolumna);
             }
@@ -59,12 +63,16 @@ namespace System_decyzyjny
                 DataRow dr = przekonwertowana_tabela.NewRow();
                 string wiersz = otrzymana_tabela.GetRow(i)[0].ToString();
                 string[] zawartosc_komorek = wiersz.Split(',');
-                for (int j = 0; j < zawartosc_komorek.Length; ++j)
+                for (int j = 0; j < zawartosc_komorek.Length + 1; ++j)
                 {
-                    dr[j] = zawartosc_komorek[j];
+                    if (j == 0)
+                        dr[j] = i + 1;
+                    if (j > 0)
+                        dr[j] = zawartosc_komorek[j - 1];
                 }
                 przekonwertowana_tabela.Rows.Add(dr);
             }
+            backend.tablica_decyzyjna = przekonwertowana_tabela;
             tabela.ItemsSource = przekonwertowana_tabela.DefaultView;
             this.Show();
         }
@@ -205,6 +213,41 @@ namespace System_decyzyjny
             tabela.ItemsSource = gorne_aproksymacje.DefaultView;
             this.Show();
         }
+        //Konstruktor dla wyswietlania obszaru pozytywnego i negatywnego
+        public WyswietlTabeleDanych(int[] arg, Backend backend, string tytul)
+        {
+            InitializeComponent();
+            Title = tytul;
+            this.backend = backend;
+            co_wywolano = tytul;
+            if (tytul == "Obszar pozytywny")
+                globalny_obszar_pozytywny = arg;
+            if (tytul == "Obszar negatywny")
+                globalny_obszar_negatywny = arg;
+
+            DataTable obszar = new DataTable();
+
+            // Dodaj pozostałe kolumny do DataTable
+            for (int i = 0; i < arg.Length; ++i)
+            {
+                obszar.Columns.Add($"Element {i + 1}");
+            }
+            if(arg.Length == 0)
+                obszar.Columns.Add($"Obszar pusty");
+
+            // Dodaj wiersze do DataTable
+            DataRow dataRow = obszar.Rows.Add();
+            for(int i = 0; i < arg.Length; ++i)
+            {
+                dataRow[i] = arg[i];
+            }
+            if (arg.Length == 0)
+                dataRow[0] = "Brak elementow";
+
+            
+            tabela.ItemsSource = obszar.DefaultView;
+            this.Show();
+        }
         public void next_click(object sender, EventArgs e)
         {
             if (co_wywolano == "Wprowadzone dane")
@@ -227,7 +270,16 @@ namespace System_decyzyjny
                 nextPrzycisk.IsEnabled = false;
                 backend.WyznaczObszarPozytywny();
             }
-            
+            if (co_wywolano == "Obszar pozytywny")
+            {
+                nextPrzycisk.IsEnabled = false;
+                backend.WyznaczObszarNegatywny(globalny_obszar_pozytywny);
+            }
+            if (co_wywolano == "Obszar negatywny")
+            {
+                nextPrzycisk.IsEnabled = false;
+                backend.WyznaczZbiorWskazujacychRegulDecyzyjnych(globalny_obszar_pozytywny, globalny_obszar_negatywny);
+            }
         }
         public void save_click(object sender, EventArgs e)
         {
